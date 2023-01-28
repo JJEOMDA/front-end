@@ -10,7 +10,7 @@ export const GlobalStyles = createGlobalStyle`
         font-size: 10px;
     }
   body {
-    font-family: 'Noto Sans KR', sans-serif;
+    font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
     color: #323232;
   }
   button {
@@ -24,9 +24,9 @@ export const GlobalStyles = createGlobalStyle`
     }
     
     font-weight: 600;
-    background: #00c7ae;
+    background: #35a3dc;
     color: #fff;
-    border-radius: 3px;
+    border-radius: 6px;
     // 버튼 내부 글자 가운데 정렬
     display: flex;
     justify-content: center;

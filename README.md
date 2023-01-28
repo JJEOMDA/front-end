@@ -11,4 +11,5 @@ $ yarn add react-hook-form
 $ yarn add axios
 $ yarn add react-cookie
 $ yarn add react-spinners
+$ yarn add react-icons
 ```
