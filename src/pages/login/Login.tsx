@@ -26,22 +26,36 @@ const Login = () => {
   // 비밀번호 재확인
   const passwordRef = watch("password");
 
+  // 카카오톡 인앱 브라우저 창닫기
+  let isMobile = false;
+  const filter = "win16|win32|win64|mac";
+  if (navigator.platform) {
+    isMobile = filter.indexOf(navigator.platform.toLowerCase()) < 0;
+  }
+
   return (
     <Wrap>
       <Header>
         <div className="title">
           <div>
-            쩜다 . <span>JJamda .</span>
+            쩜다 . <span>JJeomda .</span>
           </div>
           <VscClose
             onClick={() => {
-              window.open("", "_self")?.close();
+              if (isMobile) {
+                // 갤럭시
+                window.location.href = "kakaotalk://inappbrowser/close";
+                // 아이폰
+                window.location.href = "kakaoweb://closeBrowser";
+              } else {
+                window.close();
+              }
             }}
           />
         </div>
         <div className="title-desc">
-          <div>블라인드 인연 매칭 서비스</div>
-          <div>대학생, 직장인 조건 없이 누구나 따뜻한 인연을 만들어 보세요</div>
+          <div>대학생, 직장인 블라인드 인연 매칭 서비스</div>
+          <div>조건 없이 누구나 따뜻한 인연을 만들어 보세요</div>
         </div>
       </Header>
       <PostForm onSubmit={handleSubmit(onSubmit)}>
@@ -117,7 +131,6 @@ const Login = () => {
 export default Login;
 
 const Wrap = styled.div`
-  font-size: 1.4rem;
   hr {
     margin: 2rem 0;
   }
@@ -139,7 +152,6 @@ const Header = styled.div`
     }
   }
   .title-desc {
-    font-size: 1.4rem;
     line-height: 1.3;
   }
 `;
@@ -170,6 +182,7 @@ const Input = styled.input`
   border-radius: 3px;
   height: 5rem;
   padding: 1rem;
+  font-size: 1.4rem;
   outline: ${(props: { isInvalid: boolean }) => props.isInvalid && "none"};
   border: ${(props: { isInvalid: boolean }) => props.isInvalid && "1px solid red"};
   border-color: ${(props: { isInvalid: boolean }) => props.isInvalid && "#fa5963"};
@@ -187,7 +200,7 @@ const Button = styled.div`
   button {
     width: 100%;
     height: 5rem;
-    font-size: 1.6rem;
+    font-size: 1.5rem;
   }
   .agree {
     margin-top: 1rem;
@@ -196,11 +209,11 @@ const Button = styled.div`
     span {
       text-decoration: underline;
       cursor: pointer;
-      font-size: 1.5rem;
+      font-size: 1.4rem;
     }
   }
   img {
-    margin-top: 1rem;
+    margin-top: 4rem;
     width: 100%;
     height: 5rem;
     cursor: pointer;
@@ -214,7 +227,8 @@ const Footer = styled.div`
   flex-direction: column;
   align-items: center;
   font-size: 1.3rem;
-  margin: 4rem 0;
+  margin: 3rem 0;
+  color: gray;
   .copyright {
     margin-top: 0.3rem;
   }

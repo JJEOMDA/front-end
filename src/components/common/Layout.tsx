@@ -26,7 +26,9 @@ const Wrap = styled.main`
 `;
 
 const Main = styled.main`
+  /* border: 1px solid #000; */
+  font-size: 1.4rem;
   width: 380px;
   min-height: 660px;
-  padding: 1rem;
+  padding: 3rem;
 `;
