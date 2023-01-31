@@ -4,10 +4,11 @@ import { VscClose } from "react-icons/vsc";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
-const Login = () => {
+const SignUp = () => {
   // useNavigate 선언
   const navigate = useNavigate();
 
+  // react-hook-form 타입정의
   interface FormProps {
     email: string;
     password: string;
@@ -17,6 +18,7 @@ const Login = () => {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm<FormProps>({ mode: "onChange" });
 
@@ -25,6 +27,9 @@ const Login = () => {
 
   // password 정규식
   const passwordRegEx = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,16}$/;
+
+  // 비밀번호 재확인
+  const passwordRef = watch("password");
 
   // 접속 환경 모바일 여부 확인
   let isMobile = false;
@@ -99,9 +104,24 @@ const Login = () => {
             })}
           />
           {errors.password && <div className="err">{errors.password.message}</div>}
+          <Input
+            className="pw-check-input"
+            type="password"
+            autoComplete="off"
+            placeholder="비밀번호를 한번 더 입력해주세요"
+            isInvalid={!!errors.passwordCheck}
+            {...register("passwordCheck", {
+              required: "비밀번호를 한번 더 입력해주세요",
+              validate: (value) => value === passwordRef || "비밀번호가 동일하지 않습니다.",
+            })}
+          />
+          {errors.passwordCheck && <div className="err">{errors.passwordCheck.message}</div>}
         </Line>
         <Button>
-          <button className="signUp-email">로그인</button>
+          <button className="signUp-email">이메일로 시작하기</button>
+          <div className="agree">
+            회원가입 시 <span>개인정보 처리방침</span>과 <span>이용약관</span>에 동의합니다.
+          </div>
           <button className="signUp-kakao">
             <img src="./images/ic_kko.svg" alt="카카오 로그인 버튼" />
             <span>카카오로 1초만에 시작하기</span>
@@ -109,14 +129,14 @@ const Login = () => {
         </Button>
       </PostForm>
       <hr />
-      <div className="signUp-redirection">
-        아직 회원이 아니신가요?{" "}
+      <div className="login-redirection">
+        이미 회원이신가요?{" "}
         <span
           onClick={() => {
-            navigate("/");
+            navigate("/login");
           }}
         >
-          회원가입하기
+          로그인하기
         </span>
       </div>
       <Footer>
@@ -135,13 +155,13 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SignUp;
 
 const Wrap = styled.div`
   hr {
     margin: 2rem 0;
   }
-  .signUp-redirection {
+  .login-redirection {
     span {
       font-size: 1.5rem;
       text-decoration: underline;
@@ -174,6 +194,9 @@ const PostForm = styled.form`
   margin-top: 2rem;
   .pw-line {
     margin-top: 2rem;
+  }
+  .pw-check-input {
+    margin-top: 1rem;
   }
 `;
 const Line = styled.div`
@@ -214,11 +237,18 @@ const Button = styled.div`
     height: 5rem;
     font-size: 1.5rem;
   }
-  .signUp-email {
-    background-color: #000;
+  .agree {
+    margin-top: 1rem;
+    color: gray;
+    font-size: 1.3rem;
+    span {
+      text-decoration: underline;
+      cursor: pointer;
+      font-size: 1.4rem;
+    }
   }
   .signUp-kakao {
-    margin-top: 1rem;
+    margin-top: 2rem;
     width: 100%;
     height: 5rem;
     background-color: #ffe500;

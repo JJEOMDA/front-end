@@ -26,7 +26,11 @@ const Wrap = styled.main`
 `;
 
 const Main = styled.main`
-  /* border: 1px solid #000; */
+  border: 1px solid #000;
+  // Mobile(479px 보다 작은 화면에서는 border: none;)
+  @media (max-width: ${(props) => props.theme.breakpoints.Mobile}) {
+    border: none;
+  }
   font-size: 1.4rem;
   width: 380px;
   min-height: 660px;

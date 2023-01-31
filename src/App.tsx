@@ -5,8 +5,10 @@ import { ThemeProvider } from "styled-components";
 import Theme from "./shared/styles/Theme";
 
 // 페이지 import
+import SignUp from "./pages/login/SignUp";
 import Login from "./pages/login/Login";
 import Layout from "./components/common/Layout";
+import Info from "./pages/main/Info";
 
 function App() {
   return (
@@ -15,7 +17,9 @@ function App() {
         <GlobalStyles />
         <Routes>
           <Route path="/" element={<Layout />}>
-            <Route path="/" element={<Login />} />
+            <Route path="/" element={<SignUp />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/info" element={<Info />} />
           </Route>
         </Routes>
       </ThemeProvider>

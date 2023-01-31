@@ -11,6 +11,12 @@ const Theme = {
     LightGreen: "#9CD326",
     Skygray: "#e9edf3",
   },
+  breakpoints: {
+    Mobile: "479px",
+    TabletMin: "768px",
+    TabletMax: "1023px",
+    Desktop: "1024px",
+  },
 };
 
 export default Theme;
