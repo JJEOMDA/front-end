@@ -59,7 +59,7 @@ const InfoSecond = (props: {
           id="tobacco"
           type="text"
           autoComplete="off"
-          placeholder="흡연유무를 입력해주세요 (흡연자 비흡연자)"
+          placeholder="흡연유무를 입력해주세요 (흡연자, 비흡연자)"
           isInvalid={!!errors.tobacco}
           {...register('tobacco', {
             required: '흡연유무를 입력해주세요',

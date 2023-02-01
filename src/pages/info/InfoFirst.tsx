@@ -10,8 +10,8 @@ const InfoFirst = (props: {
   // react-hook-form 타입정의
   interface FormProps {
     name: string;
-    age: string;
-    sex: string;
+    birth?: string;
+    sex?: string;
     residence: string;
   }
 
@@ -34,6 +34,42 @@ const InfoFirst = (props: {
     props.setTabIndex((prev) => prev + 1);
   };
 
+  // react-select 핸들링
+  const sexOptions = [
+    { value: '남', label: '남' },
+    { value: '여', label: '여' },
+  ];
+
+  const residenceOptions = [
+    { value: '서울', label: '서울' },
+    { value: '경기', label: '경기' },
+    { value: '인천', label: '인천' },
+    { value: '부산', label: '부산' },
+    { value: '대구', label: '대구' },
+    { value: '광주', label: '광주' },
+    { value: '대전', label: '대전' },
+    { value: '울산', label: '울산' },
+    { value: '강원', label: '강원' },
+    { value: '경남', label: '경남' },
+    { value: '경북', label: '경북' },
+    { value: '전남', label: '전남' },
+    { value: '전북', label: '전북' },
+    { value: '제주', label: '제주' },
+    { value: '충남', label: '충남' },
+  ];
+
+  const colourStyles = {
+    control: (style: any) => ({
+      ...style,
+      height: '5rem',
+      fontSize: '1.5rem',
+    }),
+  };
+
+  // select로 선택된 값 가져오기
+  const [selectSexState, setSelectSexState] = useState<string>();
+  const [selectResidenceState, setSelectResidenceState] = useState<string>();
+
   return (
     <PostForm onSubmit={handleSubmit(onSubmit)} viewInput={viewInput}>
       <Line>
@@ -54,15 +90,15 @@ const InfoFirst = (props: {
         />
         {errors.name && <div className="err">{errors.name.message}</div>}
       </Line>
-      <Line className="age">
-        <label htmlFor="age">출생연도</label>
+      <Line className="birth">
+        <label htmlFor="birth">출생연도</label>
         <Input
-          id="age"
+          id="birth"
           type="text"
           autoComplete="off"
           placeholder="출생연도를 입력해주세요 (1998)"
-          isInvalid={!!errors.age}
-          {...register('age', {
+          isInvalid={!!errors.birth}
+          {...register('birth', {
             required: '출생연도를 입력해주세요',
           })}
           // 두번째 input에 값이 들어오면 세번째 input field 활성화
@@ -70,46 +106,33 @@ const InfoFirst = (props: {
             setViewInput({ ...viewInput, third: 'flex' });
           }}
         />
-        {errors.age && <div className="err">{errors.age.message}</div>}
+        {errors.birth && <div className="err">{errors.birth.message}</div>}
       </Line>
       <Line className="sex">
         <label htmlFor="sex">성별</label>
-        <Input
+        {/* Select */}
+        <Select
           id="sex"
-          type="text"
-          autoComplete="off"
-          placeholder="성별을 입력해주세요 (남, 여)"
-          isInvalid={!!errors.sex}
-          {...register('sex', {
-            required: '성별을 입력해주세요',
-          })}
-          // 세번째 input에 값이 들어오면 네번째 input field 활성화
-          onChange={() => {
+          options={sexOptions}
+          styles={colourStyles}
+          onChange={(e: React.ChangeEvent<HTMLSelectElement> | any) => {
             setViewInput({ ...viewInput, fourth: 'flex' });
+            setSelectSexState(e.value);
           }}
         />
-        {errors.sex && <div className="err">{errors.sex.message}</div>}
       </Line>
-
       <Line className="residence">
         <label htmlFor="residence">사는곳</label>
-        <Input
+        {/* Select */}
+        <Select
           id="residence"
-          type="text"
-          autoComplete="off"
-          placeholder="사는곳을 입력해주세요 (서울, 경기도)"
-          isInvalid={!!errors.residence}
-          {...register('residence', {
-            required: '사는곳를 입력해주세요',
-          })}
-          // 네번째 input에 값이 들어오면 버튼 활성화
-          onChange={() => {
+          options={residenceOptions}
+          styles={colourStyles}
+          onChange={(e: React.ChangeEvent<HTMLSelectElement> | any) => {
             setViewInput({ ...viewInput, btn: 'block' });
+            setSelectResidenceState(e.value);
           }}
         />
-        {errors.residence && (
-          <div className="err">{errors.residence.message}</div>
-        )}
       </Line>
       <button>다음 (1/3)</button>
     </PostForm>
@@ -124,7 +147,7 @@ const PostForm = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  .age {
+  .birth {
     display: ${(props: { viewInput: IViewInput }) => props.viewInput.second};
   }
   .sex {
@@ -167,6 +190,9 @@ const Line = styled.div`
     to {
       opacity: 1;
     }
+  }
+  select {
+    height: 5rem;
   }
 `;
 const Input = styled.input`
