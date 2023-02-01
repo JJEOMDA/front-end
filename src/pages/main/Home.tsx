@@ -44,10 +44,10 @@ const Home = () => {
           </StyledSlider>
         </div>
       </Profile>
-      <Alarm>
+      <Notice>
         <RiErrorWarningFill />
-        <div>익일 02시 정각마다 진행상황이 업데이트 됩니다.</div>
-      </Alarm>
+        <div>익일 00시 정각마다 진행상황이 업데이트 됩니다.</div>
+      </Notice>
       <Content>
         <ul>
           <li>
@@ -99,7 +99,8 @@ const StyledSlider = styled(Slider)`
     bottom: 10px;
   }
 `;
-const Alarm = styled.div`
+const Notice = styled.div`
+  font-size: 1.4rem;
   width: 100%;
   height: 3rem;
   background-color: #f2f2f2;
@@ -115,7 +116,7 @@ const Content = styled.div`
   margin: 3rem 0 3rem 0;
   ul {
     list-style: none;
-    font-size: 1.6rem;
+    font-size: 1.7rem;
     li {
       .matching {
         display: flex;
