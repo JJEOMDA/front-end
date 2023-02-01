@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import InfoBtn from './InfoBtn';
 import InfoFirst from './InfoFirst';
 import InfoSecond from './InfoSecond';
 import InfoThird from './InfoThird';
 
 const Info = () => {
   // 탭 인댁스
-  const [tabIndex, setTabIndex] = useState<number>(1);
+  const [tabIndex, setTabIndex] = useState<number>(0);
 
   // 탭 인댁스에 따른 컴포넌트 렌더링
   const tabContent = [
+    <InfoBtn setTabIndex={setTabIndex} />,
     <InfoFirst setTabIndex={setTabIndex} />,
     <InfoSecond setTabIndex={setTabIndex} />,
     <InfoThird setTabIndex={setTabIndex} />,
@@ -30,7 +32,7 @@ const Info = () => {
           <div className="dot"></div>
         </div>
       </Header>
-      {tabContent[tabIndex - 1]}
+      {tabContent[tabIndex]}
     </Wrap>
   );
 };
@@ -66,7 +68,9 @@ const Header = styled.div`
     }
     .dot {
       display: ${(props: { progressPercentage: number }) =>
-        props.progressPercentage === 3 ? 'none' : 'block'};
+        props.progressPercentage === 0 || props.progressPercentage === 3
+          ? 'none'
+          : 'block'};
       width: 30px;
       height: 30px;
       background-color: #fff;

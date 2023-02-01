@@ -140,7 +140,7 @@ const PostForm = styled.form`
     height: 5rem;
     font-size: 1.5rem;
     background-color: #000;
-    animation: modal-show 1s;
+    animation: input-show 1s;
   }
 `;
 const Line = styled.div`
@@ -158,8 +158,8 @@ const Line = styled.div`
     font-weight: 700;
   }
   /* input창이 새로 나올 때마다 애니메이션 효과 주기 */
-  animation: modal-show 1s;
-  @keyframes modal-show {
+  animation: input-show 1s;
+  @keyframes input-show {
     from {
       opacity: 0;
     }
