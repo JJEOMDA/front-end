@@ -203,6 +203,8 @@ const Line = styled.div`
   }
   label {
     margin-bottom: 1rem;
+    font-size: 1.6rem;
+    font-weight: 700;
   }
   /* input창이 새로 나올 때마다 애니메이션 효과 주기 */
   animation: modal-show 1s;
