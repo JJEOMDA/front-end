@@ -40,7 +40,7 @@ const InfoThird = (props: {
       title: '<span style="font-size: 14px">성공적으로 제출되었습니다.',
       width: 340,
     });
-    navigate('/');
+    navigate('/home');
   };
 
   // sweet-alert 모달창
