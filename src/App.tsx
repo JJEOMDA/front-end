@@ -8,7 +8,8 @@ import Theme from './shared/styles/Theme';
 import SignUp from './pages/login/SignUp';
 import Login from './pages/login/Login';
 import Layout from './components/common/Layout';
-import InfoFirst from './pages/main/InfoFirst';
+import Info from './pages/info/Info';
+import Home from './pages/main/Home';
 
 function App() {
   return (
@@ -19,7 +20,8 @@ function App() {
           <Route path="/" element={<Layout />}>
             <Route path="/" element={<SignUp />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/info_first" element={<InfoFirst />} />
+            <Route path="/info" element={<Info />} />
+            <Route path="/home" element={<Home />} />
           </Route>
         </Routes>
       </ThemeProvider>

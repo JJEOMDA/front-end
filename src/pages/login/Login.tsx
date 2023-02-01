@@ -109,7 +109,7 @@ const Login = () => {
           <button
             className="signUp-email"
             onClick={() => {
-              navigate('/info_first');
+              navigate('/info');
             }}
           >
             로그인
