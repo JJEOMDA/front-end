@@ -1,6 +1,7 @@
 import React, { useState, Dispatch, SetStateAction } from 'react';
 import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
+import Select from 'react-select';
 import { IViewInput } from './InfoType';
 
 const InfoFirst = (props: {
