@@ -60,8 +60,7 @@ const Header = styled.div`
       width: ${(props: { progressPercentage: number }) =>
         props.progressPercentage * 34}%;
       height: 2rem;
-      background-color: ${(props: { progressPercentage: number }) =>
-        props.progressPercentage === 3 ? '#2ec7a6' : '#673ab7'};
+      background-color: #000;
       /* 트랜지션 효과: 모든 프로퍼티의 변화를 1초에 걸쳐 전환 */
       transition: all 1s;
     }
@@ -71,7 +70,7 @@ const Header = styled.div`
       width: 30px;
       height: 30px;
       background-color: #fff;
-      border: 5px solid #673ab7;
+      border: 5px solid #000;
       border-radius: 40px;
       margin-left: -20px;
       z-index: 99;
