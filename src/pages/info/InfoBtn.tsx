@@ -41,6 +41,6 @@ const Wrap = styled.div`
     font-size: 1.7rem;
     height: 5rem;
     opacity: 0;
-    animation: fadeInText 4s 2s ease-out forwards;
+    animation: fadeInText 4s 1s ease-out forwards;
   }
 `;
