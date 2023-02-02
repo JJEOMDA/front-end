@@ -1,22 +1,22 @@
 import React, { Dispatch, SetStateAction } from 'react';
 import styled from 'styled-components';
 
-const InfoBtn = (props: { setTabIndex: Dispatch<SetStateAction<number>> }) => {
+const MatchingBtn = (props: { setTabIndex: Dispatch<SetStateAction<number>> }) => {
   return (
     <Wrap>
-      <div className="desc">당신에 대해 들려주세요 ,</div>
+      <div className="desc">비는 조금 흩날렸지만 괜찮았다 ,</div>
       <button
         onClick={() => {
           props.setTabIndex((prev) => prev + 1);
         }}
       >
-        안녕하세요 저는 이런 사람 입니다
+        너를 만난다는 설렘으로
       </button>
     </Wrap>
   );
 };
 
-export default InfoBtn;
+export default MatchingBtn;
 const Wrap = styled.div`
   .desc {
     margin-bottom: 2rem;

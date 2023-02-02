@@ -38,6 +38,7 @@ const Home = () => {
     },
   });
 
+  // 나의 매칭 현황 버튼 클릭시 실행되는 함수
   const matchingWaiting = () => {
     Toast.fire({
       icon: 'info',
@@ -46,6 +47,16 @@ const Home = () => {
       width: 340,
     });
   };
+
+  //
+  const developing = () => {
+    Toast.fire({
+      icon: 'warning',
+      title:
+        '<span style="font-size: 14px">준비 중인 기능입니다! 다음 업데이트에서 만나요!',
+      width: 360,
+    });
+  }
 
   return (
     <Wrap>
@@ -73,24 +84,32 @@ const Home = () => {
       </Notice>
       <Content>
         <ul>
-          <li>
+          <li onClick={() => {
+            navigate('/matching')
+          }}>
             <div className="matching">
               블라인드 매칭 <span>HOT</span>
             </div>
             <AiOutlineRight />
           </li>
-          <li>
-            <div>실시간 매칭 현황</div>
+          <li onClick={() => {
+            developing();
+          }}>
+            <div>쩜다 실시간 매칭 현황</div>
             <AiOutlineRight />
           </li>
-          <li>
+          <li onClick={() => {
+            window.open('https://forms.gle/NmiLSJEue8iF6RzA9')
+          }}>
             <div>문의하기</div>
             <AiOutlineRight />
           </li>
+      
         </ul>
       </Content>
       <hr />
       <MatchingCard>
+        <div className='matching-card-title'>나의 매칭 현황</div>
         <div className="card-box">
           <div
             className="card first"
@@ -125,6 +144,9 @@ const Home = () => {
           </div>
         </div>
       </MatchingCard>
+      <Footer>
+        <div className='version'>version 1.0.1 (Beta)</div>
+      </Footer>
     </Wrap>
   );
 };
@@ -134,7 +156,7 @@ export default Home;
 const Wrap = styled.div``;
 const Profile = styled.div`
   width: 100%;
-  height: 17rem;
+  height: 18rem;
   .title-name {
     font-size: 2.3rem;
     font-weight: 700;
@@ -150,8 +172,6 @@ const Profile = styled.div`
   }
   .title-banner {
     margin: 2rem 0 2rem 0;
-    display: flex;
-    justify-content: center;
   }
 `;
 const StyledSlider = styled(Slider)`
@@ -191,7 +211,6 @@ const Content = styled.div`
           margin-left: 10px;
         }
       }
-
       padding: 1rem;
       display: flex;
       justify-content: space-between;
@@ -200,15 +219,27 @@ const Content = styled.div`
         background-color: rgba(0, 123, 255, 0.1);
         color: #35a3dc;
       }
+  
     }
   }
 `;
 const MatchingCard = styled.div`
   margin: 2rem 0 2rem 0;
+  .matching-card-title {
+    margin-bottom: 2rem;
+    background-color: #000;
+    color: #fff;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.2rem;
+    border-radius: 5px;
+  }
   .card-box {
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
     .card {
       width: 60px;
       height: 60px;
@@ -259,3 +290,16 @@ const MatchingCard = styled.div`
     }
   }
 `;
+const Footer = styled.div`
+  margin-top: 4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .version {
+    font-size: 1.3rem;
+    color: gray;
+    background-color: #f2f2f2;
+    padding: 6px;
+    border-radius: 5px;
+  }
+`
