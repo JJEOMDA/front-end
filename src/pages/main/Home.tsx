@@ -56,7 +56,7 @@ const Home = () => {
         '<span style="font-size: 14px">준비 중인 기능입니다! 다음 업데이트에서 만나요!',
       width: 360,
     });
-  }
+  };
 
   return (
     <Wrap>
@@ -84,32 +84,37 @@ const Home = () => {
       </Notice>
       <Content>
         <ul>
-          <li onClick={() => {
-            navigate('/matching')
-          }}>
+          <li
+            onClick={() => {
+              navigate('/matching');
+            }}
+          >
             <div className="matching">
               블라인드 매칭 <span>HOT</span>
             </div>
             <AiOutlineRight />
           </li>
-          <li onClick={() => {
-            developing();
-          }}>
+          <li
+            onClick={() => {
+              developing();
+            }}
+          >
             <div>쩜다 실시간 매칭 현황</div>
             <AiOutlineRight />
           </li>
-          <li onClick={() => {
-            window.open('https://forms.gle/NmiLSJEue8iF6RzA9')
-          }}>
+          <li
+            onClick={() => {
+              window.open('https://forms.gle/NmiLSJEue8iF6RzA9');
+            }}
+          >
             <div>문의하기</div>
             <AiOutlineRight />
           </li>
-      
         </ul>
       </Content>
       <hr />
       <MatchingCard>
-        <div className='matching-card-title'>나의 매칭 현황</div>
+        <div className="matching-card-title">나의 매칭 현황</div>
         <div className="card-box">
           <div
             className="card first"
@@ -122,6 +127,8 @@ const Home = () => {
           </div>
           <div className="circle"></div>
           <div className="circle"></div>
+          <div className="circle"></div>
+
           <div
             className="card second"
             onClick={() => {
@@ -131,6 +138,7 @@ const Home = () => {
             <div className="card-title">매칭중</div>
             <div className="num">0</div>
           </div>
+          <div className="circle"></div>
           <div className="circle"></div>
           <div className="circle"></div>
           <div
@@ -145,7 +153,7 @@ const Home = () => {
         </div>
       </MatchingCard>
       <Footer>
-        <div className='version'>version 1.0.1 (Beta)</div>
+        <div className="version">version 1.0.1 (Beta)</div>
       </Footer>
     </Wrap>
   );
@@ -219,7 +227,6 @@ const Content = styled.div`
         background-color: rgba(0, 123, 255, 0.1);
         color: #35a3dc;
       }
-  
     }
   }
 `;
@@ -227,9 +234,9 @@ const MatchingCard = styled.div`
   margin: 2rem 0 2rem 0;
   .matching-card-title {
     margin-bottom: 2rem;
-    background-color: #000;
+    background-color: #00c7ae;
     color: #fff;
-    height: 35px;
+    height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -302,4 +309,4 @@ const Footer = styled.div`
     padding: 6px;
     border-radius: 5px;
   }
-`
+`;

@@ -1,12 +1,16 @@
-import React from "react";
-import { Outlet } from "react-router-dom";
-import styled from "styled-components";
+import React from 'react';
+import { Outlet, useLocation } from 'react-router-dom';
+import styled from 'styled-components';
 
 const Layout = () => {
+  // useLocation 선언
+  const location = useLocation();
+  // url이 /home으로 끝나는, 즉 Home 컴포넌트에서는 padding을 2rem으로 적용
+  const pageHomePadding = location.pathname === '/home' ? '2rem' : '3rem';
   return (
     <React.Fragment>
       <Wrap>
-        <Main>
+        <Main pageHomePadding={pageHomePadding}>
           <Outlet />
         </Main>
       </Wrap>
@@ -34,5 +38,5 @@ const Main = styled.main`
   font-size: 1.4rem;
   width: 380px;
   min-height: 660px;
-  padding: 2rem;
+  padding: ${(props: { pageHomePadding: string }) => props.pageHomePadding};
 `;
