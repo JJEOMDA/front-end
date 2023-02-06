@@ -123,7 +123,7 @@ const Home = () => {
             }}
           >
             <div className="card-title">매칭대기</div>
-            <div className="num">0</div>
+            {/* <div className="num">0</div> */}
           </div>
           <div className="circle"></div>
           <div className="circle"></div>
@@ -136,7 +136,7 @@ const Home = () => {
             }}
           >
             <div className="card-title">매칭중</div>
-            <div className="num">0</div>
+            {/* <div className="num">0</div> */}
           </div>
           <div className="circle"></div>
           <div className="circle"></div>
@@ -148,7 +148,7 @@ const Home = () => {
             }}
           >
             <div className="card-title">매칭완료</div>
-            <div className="num">0</div>
+            {/* <div className="num">0</div> */}
           </div>
         </div>
       </MatchingCard>
@@ -234,7 +234,7 @@ const MatchingCard = styled.div`
   margin: 2rem 0 2rem 0;
   .matching-card-title {
     margin-bottom: 2rem;
-    background-color: #00c7ae;
+    background-color: #000;
     color: #fff;
     height: 40px;
     display: flex;
@@ -274,20 +274,24 @@ const MatchingCard = styled.div`
         #e2445c;
     }
     .card.second {
-      background: linear-gradient(
+      /* background: linear-gradient(
           287.96deg,
           rgba(0, 0, 0, 0.16) 15.1%,
           rgba(0, 0, 0, 0) 83.32%
         ),
-        #02c3bd;
+        #02c3bd; */
+      background-color: #e1e1e1;
+      color: gray;
     }
     .card.third {
-      background: linear-gradient(
+      /* background: linear-gradient(
           287.96deg,
           rgba(0, 0, 0, 0.16) 15.1%,
           rgba(0, 0, 0, 0) 83.32%
         ),
-        #fdab3d;
+        #fdab3d; */
+      background-color: #e1e1e1;
+      color: gray;
     }
     .circle {
       width: 6px;
