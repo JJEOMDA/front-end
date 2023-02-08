@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { getCookie } from './cookie';
 
 const api = axios.create({
   // axios 버전이 바뀌면서 기존 문법이 안먹히던 이슈 발생
@@ -10,12 +11,16 @@ const api = axios.create({
   },
 });
 
+api.interceptors.request.use((config: any) => {
+  const accessToken = getCookie('Authorization');
+  config.headers.Authorization = `Bearer ${accessToken}`;
+  return config;
+});
+
 const apis = {
   // LOGIN
-  login: (data: { email: string; password: string }) =>
-    api.post('/login', data),
-  signUp: (data: { email: string; password: string }) =>
-    api.post('/signup', data),
+  login: (data: { email: string; password: string }) => api.post('/login', data),
+  signUp: (data: { email: string; password: string }) => api.post('/signup', data),
   kakaoAuth: (code: string | null) => api.post('/user/kakao/callback', code),
 };
 
