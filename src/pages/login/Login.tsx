@@ -27,7 +27,9 @@ const Login = () => {
     try {
       const res = await apis.login(data);
       setAccessToken(res.data.token);
-      navigate(`/info/${res.data.id}`);
+      res.data.status === false
+        ? navigate(`/info/${res.data.id}`)
+        : navigate(`/home`);
     } catch (e: any) {
       console.log(e);
       if (e.response.data.errorMessage === '등록되지 않은 E-MAIL 입니다.') {
