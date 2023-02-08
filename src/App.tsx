@@ -7,6 +7,7 @@ import Theme from './shared/styles/Theme';
 // 페이지 import
 import SignUp from './pages/login/SignUp';
 import Login from './pages/login/Login';
+import Kakao from './pages/login/Kakao';
 import Layout from './components/common/Layout';
 import Info from './pages/info/Info';
 import Home from './pages/main/Home';
@@ -21,6 +22,7 @@ function App() {
           <Route path="/" element={<Layout />}>
             <Route path="/" element={<SignUp />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/user/kakao/callback" element={<Kakao />} />
             <Route path="/info" element={<Info />} />
             <Route path="/home" element={<Home />} />
             <Route path="/matching" element={<Matching />} />
