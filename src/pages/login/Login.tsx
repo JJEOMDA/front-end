@@ -4,6 +4,7 @@ import { VscClose } from 'react-icons/vsc';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import apis from '../../shared/apis';
+import { setAccessToken } from '../../shared/cookie';
 
 const Login = () => {
   // useNavigate 선언
@@ -24,10 +25,18 @@ const Login = () => {
   // 폼 버튼 클릭시 작동하는 함수
   const onSubmit = async (data: FormProps) => {
     try {
-      await apis.login(data);
+      const res = await apis.login(data);
+      setAccessToken(res.data);
       navigate('/info');
-    } catch (e) {
-      alert('로그인에 실패했습니다. 잠시 후 다시 시도해주세요.');
+    } catch (e: any) {
+      console.log(e);
+      if (e.response.data.errorMessage === '등록되지 않은 E-MAIL 입니다.') {
+        alert('등록되지 않은 E-MAIL 입니다.');
+      } else if (e.response.data.errorMessage === '잘못된 비밀번호입니다.') {
+        alert('잘못된 비밀번호입니다.');
+      } else {
+        alert('로그인에 실패했습니다. 잠시 후 다시 시도해주세요.');
+      }
     }
   };
 
@@ -44,6 +53,13 @@ const Login = () => {
 
   // 사파리 확인
   const agent = window.navigator.userAgent.toLowerCase();
+
+  // 카카오 로그인 버튼 클릭
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    window.location.href =
+      'https://kauth.kakao.com/oauth/authorize?client_id=b26df1c1a96aa1de57b09714d4a6f8d8&redirect_uri=http://localhost:3000/user/kakao/callback&response_type=code';
+  };
 
   return (
     <Wrap>
@@ -116,9 +132,8 @@ const Login = () => {
           <button className="signUp-email">로그인</button>
           <button
             className="signUp-kakao"
-            onClick={() => {
-              window.location.href =
-                'https://kauth.kakao.com/oauth/authorize?client_id=b26df1c1a96aa1de57b09714d4a6f8d8&redirect_uri=http://localhost:3000/user/kakao/callback&response_type=code';
+            onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+              handleClick(e);
             }}
           >
             <img src="./images/ic_kko.svg" alt="카카오 로그인 버튼" />

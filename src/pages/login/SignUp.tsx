@@ -24,7 +24,6 @@ const SignUp = () => {
   } = useForm<FormProps>({ mode: 'onChange' });
 
   // 폼 버튼 클릭시 작동하는 함수
-
   const onSubmit = async (data: FormProps) => {
     const info = {
       email: data.email,
@@ -33,9 +32,13 @@ const SignUp = () => {
     try {
       await apis.signUp(info);
       alert('회원가입이 완료되었습니다!');
-      navigate('/');
-    } catch (e) {
-      alert('회원가입에 실패했습니다. 잠시 후 다시 시도해주세요.');
+      navigate('/login');
+    } catch (e: any) {
+      if (e.response.data.errorMessage === '중복된 이메일이 존재합니다.') {
+        alert('중복된 이메일이 존재합니다.');
+      } else {
+        alert('회원가입에 실패했습니다. 잠시 후 다시 시도해주세요.');
+      }
     }
   };
 
@@ -55,6 +58,13 @@ const SignUp = () => {
 
   // 사파리 확인
   const agent = window.navigator.userAgent.toLowerCase();
+
+  // 카카오 로그인 버튼 클릭
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    window.location.href =
+      'https://kauth.kakao.com/oauth/authorize?client_id=b26df1c1a96aa1de57b09714d4a6f8d8&redirect_uri=http://localhost:3000/user/kakao/callback&response_type=code';
+  };
 
   return (
     <Wrap>
@@ -144,7 +154,12 @@ const SignUp = () => {
             회원가입 시 <span>개인정보 처리방침</span>과 <span>이용약관</span>에
             동의합니다.
           </div>
-          <button className="signUp-kakao">
+          <button
+            className="signUp-kakao"
+            onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+              handleClick(e);
+            }}
+          >
             <img src="./images/ic_kko.svg" alt="카카오 로그인 버튼" />
             <span>카카오로 1초만에 시작하기</span>
           </button>
