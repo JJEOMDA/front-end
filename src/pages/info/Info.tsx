@@ -4,17 +4,44 @@ import InfoBtn from './InfoBtn';
 import InfoFirst from './InfoFirst';
 import InfoSecond from './InfoSecond';
 import InfoThird from './InfoThird';
+import { useParams } from 'react-router-dom';
 
 const Info = () => {
   // 탭 인댁스
   const [tabIndex, setTabIndex] = useState<number>(0);
 
+  // url에 id값 받아오기
+  const view = useParams();
+
+  // 컴포넌트별 유저 정보 관리
+  const [userInfo, setUserInfo] = useState<object>({
+    name: '',
+    birth: '',
+    sex: '',
+    residence: '',
+
+    alcohol: '',
+    tobacco: '',
+    tall: '',
+    height: '',
+
+    mbti: '',
+    job: '',
+    hobby: '',
+    appearance: '',
+  });
+
   // 탭 인댁스에 따른 컴포넌트 렌더링
   const tabContent = [
     <InfoBtn setTabIndex={setTabIndex} />,
-    <InfoFirst setTabIndex={setTabIndex} />,
-    <InfoSecond setTabIndex={setTabIndex} />,
-    <InfoThird setTabIndex={setTabIndex} />,
+    <InfoFirst setTabIndex={setTabIndex} setUserInfo={setUserInfo} />,
+    <InfoSecond setTabIndex={setTabIndex} setUserInfo={setUserInfo} />,
+    <InfoThird
+      setTabIndex={setTabIndex}
+      setUserInfo={setUserInfo}
+      userInfo={userInfo}
+      view={view.userId}
+    />,
   ];
 
   return (

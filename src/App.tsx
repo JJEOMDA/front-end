@@ -23,7 +23,7 @@ function App() {
             <Route path="/" element={<SignUp />} />
             <Route path="/login" element={<Login />} />
             <Route path="/user/kakao/callback" element={<Kakao />} />
-            <Route path="/info" element={<Info />} />
+            <Route path="/info/:userId" element={<Info />} />
             <Route path="/home" element={<Home />} />
             <Route path="/matching" element={<Matching />} />
           </Route>

@@ -5,6 +5,7 @@ import { IViewInput } from './InfoType';
 
 const InfoSecond = (props: {
   setTabIndex: Dispatch<SetStateAction<number>>;
+  setUserInfo: Dispatch<SetStateAction<object>>;
 }) => {
   // react-hook-form 타입정의
   interface FormProps {
@@ -29,8 +30,16 @@ const InfoSecond = (props: {
   } = useForm<FormProps>({ mode: 'onChange' });
 
   // 폼 버튼 클릭시 작동하는 함수
-  const onSubmit = async () => {
+  const onSubmit = async (data: FormProps) => {
     props.setTabIndex((prev) => prev + 1);
+    props.setUserInfo((prev) => {
+      let newUserInfo: any = { ...prev };
+      newUserInfo['alcohol'] = data.alcohol;
+      newUserInfo['tobacco'] = data.tobacco;
+      newUserInfo['tall'] = data.tall;
+      newUserInfo['height'] = data.height;
+      return newUserInfo;
+    });
   };
 
   return (

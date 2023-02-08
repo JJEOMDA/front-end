@@ -6,12 +6,13 @@ import { IViewInput } from './InfoType';
 
 const InfoFirst = (props: {
   setTabIndex: Dispatch<SetStateAction<number>>;
+  setUserInfo: Dispatch<SetStateAction<object>>;
 }) => {
   // react-hook-form 타입정의
   interface FormProps {
     name: string;
-    birth?: string;
-    sex?: string;
+    birth: string;
+    sex: string;
     residence: string;
   }
 
@@ -30,8 +31,16 @@ const InfoFirst = (props: {
   } = useForm<FormProps>({ mode: 'onChange' });
 
   // 폼 버튼 클릭시 작동하는 함수
-  const onSubmit = async () => {
+  const onSubmit = async (data: FormProps) => {
     props.setTabIndex((prev) => prev + 1);
+    props.setUserInfo((prev) => {
+      let newUserInfo: any = { ...prev };
+      newUserInfo['name'] = data.name;
+      newUserInfo['birth'] = data.birth;
+      newUserInfo['sex'] = selectSexState;
+      newUserInfo['residence'] = selectResidenceState;
+      return newUserInfo;
+    });
   };
 
   // react-select 핸들링

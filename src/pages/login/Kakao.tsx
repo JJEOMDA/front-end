@@ -16,8 +16,8 @@ const Kakao = () => {
     const kakaoAuth = async () => {
       try {
         const res = await apis.kakaoAuth(params.get('code'));
-        setAccessToken(res.data);
-        navigate('/info');
+        setAccessToken(res.data.token);
+        navigate(`/info/${res.data.id}`);
       } catch (e) {
         alert('로그인에 실패했습니다. 잠시 후 다시 시도해주세요.');
       }

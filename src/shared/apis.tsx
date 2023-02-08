@@ -13,7 +13,7 @@ const api = axios.create({
 
 api.interceptors.request.use((config: any) => {
   const accessToken = getCookie('Authorization');
-  config.headers.Authorization = `Bearer ${accessToken}`;
+  config.headers.Authorization = `${accessToken}`;
   return config;
 });
 
@@ -22,6 +22,8 @@ const apis = {
   login: (data: { email: string; password: string }) => api.post('/login', data),
   signUp: (data: { email: string; password: string }) => api.post('/signup', data),
   kakaoAuth: (code: string | null) => api.post('/user/kakao/callback', code),
+  
+  registerUserInfo: (userId: string | undefined, data: any) => api.post(`/user/info/${userId}`, data)
 };
 
 export default apis;

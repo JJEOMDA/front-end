@@ -26,8 +26,8 @@ const Login = () => {
   const onSubmit = async (data: FormProps) => {
     try {
       const res = await apis.login(data);
-      setAccessToken(res.data);
-      navigate('/info');
+      setAccessToken(res.data.token);
+      navigate(`/info/${res.data.id}`);
     } catch (e: any) {
       console.log(e);
       if (e.response.data.errorMessage === '등록되지 않은 E-MAIL 입니다.') {
