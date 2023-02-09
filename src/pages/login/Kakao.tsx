@@ -20,7 +20,7 @@ const Kakao = () => {
         // reponse 에 status 값 (DB 유저 정보 입력 여부)에 따른 라우팅 처리
         res.data.status === false
           ? navigate(`/info/${res.data.id}`)
-          : navigate(`/home`);
+          : navigate(`/home/${res.data.id}`);
       } catch (e) {
         alert('로그인에 실패했습니다. 잠시 후 다시 시도해주세요.');
       }

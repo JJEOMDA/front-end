@@ -1,6 +1,6 @@
 import React from 'react';
-import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
+import styled, { css } from 'styled-components';
+import { useNavigate, useParams } from 'react-router-dom';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -8,10 +8,15 @@ import { RiErrorWarningFill } from 'react-icons/ri';
 import { TfiBackLeft } from 'react-icons/tfi';
 import { AiOutlineRight } from 'react-icons/ai';
 import Swal from 'sweetalert2';
+import { useQuery } from '@tanstack/react-query';
+import apis from '../../shared/apis';
 
 const Home = () => {
   // useNavigate 선언
   const navigate = useNavigate();
+
+  // url에 id값 받아오기
+  const view = useParams();
 
   // 캐러셀 세팅
   const settings = {
@@ -38,17 +43,33 @@ const Home = () => {
     },
   });
 
-  // 나의 매칭 현황 버튼 클릭시 실행되는 함수
-  const matchingWaiting = () => {
-    Toast.fire({
-      icon: 'info',
-      title:
-        '<span style="font-size: 14px">대기중입니다! 매칭이 시작되면 알려드릴게요!',
-      width: 340,
-    });
+  // 매칭 상태 버튼 클릭시 진행상황 모달창
+  const matchingStatus = () => {
+    if (getUseInfoQuery?.data.matchingStatus === -1) {
+      Toast.fire({
+        icon: 'warning',
+        title:
+          '<span style="font-size: 14px">대기중입니다! 매칭이 시작되면 알려드릴게요!',
+        width: 340,
+      });
+    } else if (getUseInfoQuery?.data.matchingStatus === 0) {
+      Toast.fire({
+        icon: 'info',
+        title:
+          '<span style="font-size: 14px">매칭이 진행중이에요! 조금만 기다려주세요!',
+        width: 340,
+      });
+    } else {
+      Toast.fire({
+        icon: 'success',
+        title:
+          '<span style="font-size: 14px">매칭이 완료되었습니다! 결과를 확인하세요!',
+        width: 340,
+      });
+    }
   };
 
-  //
+  // 쩜다 실시간 매칭 현황 탭
   const developing = () => {
     Toast.fire({
       icon: 'warning',
@@ -58,12 +79,32 @@ const Home = () => {
     });
   };
 
+  // 유저 정보 호출 api
+  const getUserInfo = async () => {
+    try {
+      const res = await apis.getUserInfo(view.userId);
+      return res;
+    } catch (err) {
+      console.log('유저 정보를 불러오는데 실패했습니다.');
+    }
+  };
+
+  // 유저 정보 호출 쿼리
+  const { data: getUseInfoQuery } = useQuery(['loadUserInfo'], getUserInfo, {
+    refetchOnWindowFocus: false,
+    onSuccess: () => {},
+    onError: () => {
+      console.log('유저 정보를 불러오는데 실패했습니다.');
+    },
+  });
+
   return (
     <Wrap>
       <Profile>
         <div className="title-name">
           <div>
-            <span>안녕하세요, </span>김하나
+            <span>안녕하세요, </span>
+            {getUseInfoQuery?.data.name}
           </div>
           <TfiBackLeft
             onClick={() => {
@@ -73,8 +114,8 @@ const Home = () => {
         </div>
         <div className="title-banner">
           <StyledSlider {...settings}>
-            <img src="./images/banner_bg_1.png" alt="쩜다 배너" />
-            <img src="./images/banner_bg_2.png" alt="쩜다 배너" />
+            <img src="/images/banner_bg_1.png" alt="쩜다 배너" />
+            <img src="/images/banner_bg_2.png" alt="쩜다 배너" />
           </StyledSlider>
         </div>
       </Profile>
@@ -113,13 +154,13 @@ const Home = () => {
         </ul>
       </Content>
       <hr />
-      <MatchingCard>
+      <MatchingCard matchingStatus={getUseInfoQuery?.data.matchingStatus}>
         <div className="matching-card-title">나의 매칭 현황</div>
         <div className="card-box">
           <div
             className="card first"
             onClick={() => {
-              matchingWaiting();
+              matchingStatus();
             }}
           >
             <div className="card-title">매칭대기</div>
@@ -132,7 +173,7 @@ const Home = () => {
           <div
             className="card second"
             onClick={() => {
-              matchingWaiting();
+              matchingStatus();
             }}
           >
             <div className="card-title">매칭중</div>
@@ -144,7 +185,7 @@ const Home = () => {
           <div
             className="card third"
             onClick={() => {
-              matchingWaiting();
+              matchingStatus();
             }}
           >
             <div className="card-title">매칭완료</div>
@@ -266,32 +307,49 @@ const MatchingCard = styled.div`
       }
     }
     .card.first {
-      background: linear-gradient(
-          287.96deg,
-          rgba(0, 0, 0, 0.16) 15.1%,
-          rgba(0, 0, 0, 0) 83.32%
-        ),
-        #e2445c;
+      background-color: #e1e1e1;
+      color: gray;
+      ${(props: { matchingStatus: number }) =>
+        props.matchingStatus === -1 &&
+        css`
+          background: linear-gradient(
+              287.96deg,
+              rgba(0, 0, 0, 0.16) 15.1%,
+              rgba(0, 0, 0, 0) 83.32%
+            ),
+            #e2445c;
+          color: #fff;
+        `};
     }
     .card.second {
-      /* background: linear-gradient(
-          287.96deg,
-          rgba(0, 0, 0, 0.16) 15.1%,
-          rgba(0, 0, 0, 0) 83.32%
-        ),
-        #02c3bd; */
       background-color: #e1e1e1;
       color: gray;
+      ${(props: { matchingStatus: number }) =>
+        props.matchingStatus === 0 &&
+        css`
+          background: linear-gradient(
+              287.96deg,
+              rgba(0, 0, 0, 0.16) 15.1%,
+              rgba(0, 0, 0, 0) 83.32%
+            ),
+            #02c3bd;
+          color: #fff;
+        `};
     }
     .card.third {
-      /* background: linear-gradient(
-          287.96deg,
-          rgba(0, 0, 0, 0.16) 15.1%,
-          rgba(0, 0, 0, 0) 83.32%
-        ),
-        #fdab3d; */
       background-color: #e1e1e1;
       color: gray;
+      ${(props: { matchingStatus: number }) =>
+        props.matchingStatus === 1 &&
+        css`
+          background: linear-gradient(
+              287.96deg,
+              rgba(0, 0, 0, 0.16) 15.1%,
+              rgba(0, 0, 0, 0) 83.32%
+            ),
+            #fdab3d;
+          color: #fff;
+        `};
     }
     .circle {
       width: 6px;

@@ -27,9 +27,10 @@ const Login = () => {
     try {
       const res = await apis.login(data);
       setAccessToken(res.data.token);
+      // reponse 에 status 값 (DB 유저 정보 입력 여부)에 따른 라우팅 처리
       res.data.status === false
         ? navigate(`/info/${res.data.id}`)
-        : navigate(`/home`);
+        : navigate(`/home/${res.data.id}`);
     } catch (e: any) {
       console.log(e);
       if (e.response.data.errorMessage === '등록되지 않은 E-MAIL 입니다.') {
@@ -138,7 +139,7 @@ const Login = () => {
               handleClick(e);
             }}
           >
-            <img src="./images/ic_kko.svg" alt="카카오 로그인 버튼" />
+            <img src="/images/ic_kko.svg" alt="카카오 로그인 버튼" />
             <span>카카오로 1초만에 시작하기</span>
           </button>
         </Button>

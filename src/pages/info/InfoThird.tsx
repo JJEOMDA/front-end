@@ -55,7 +55,7 @@ const InfoThird = (props: {
         title: '<span style="font-size: 14px">성공적으로 제출되었습니다.',
         width: 340,
       });
-      navigate('/home');
+      navigate(`/home/${props.view}`);
     } catch (e: any) {
       alert('정보 등록에 실패했습니다. 잠시 후 다시 시도해주세요.');
       navigate('/');
