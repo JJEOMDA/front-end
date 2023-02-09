@@ -4,9 +4,13 @@ import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { IViewInput } from '../info/InfoType';
 import Swal from 'sweetalert2';
+import apis from '../../shared/apis';
 
 const MatchingThird = (props: {
   setTabIndex: Dispatch<SetStateAction<number>>;
+  setUserInfo: Dispatch<SetStateAction<object>>;
+  userInfo: object;
+  view: string | undefined;
 }) => {
   // useNavigate 선언
   const navigate = useNavigate();
@@ -34,13 +38,30 @@ const MatchingThird = (props: {
   } = useForm<FormProps>({ mode: 'onChange' });
 
   // 폼 버튼 클릭시 작동하는 함수
-  const onSubmit = async () => {
-    Toast.fire({
-      icon: 'success',
-      title: '<span style="font-size: 14px">입력하신 정보를 바탕으로 매칭을 시작합니다!',
-      width: 340,
-    });
-    navigate('/home');
+  const onSubmit = async (data: FormProps) => {
+    // 버튼 클릭과 동시에 props.setUserInfo를 반영하고 싶지만,
+    // async 하게 처리되는 state 변경 함수 특성상, axios 요청 전에 변경이 안되는 문제를 핸들링 하기위해
+    // 이전 컴포넌트와는 다르게 처리.
+    let newUserInfo: any = { ...props.userInfo };
+    newUserInfo['mbti'] = data.mbti;
+    newUserInfo['job'] = data.job;
+    newUserInfo['hobby'] = data.hobby;
+    newUserInfo['appearance'] = data.appearance;
+
+    try {
+      await apis.registerUserIdealInfo(props.view, newUserInfo);
+      Toast.fire({
+        icon: 'success',
+        title:
+          '<span style="font-size: 14px">입력하신 정보를 바탕으로 매칭을 시작합니다!',
+        width: 340,
+      });
+      navigate(`/home/${props.view}`);
+    } catch (e: any) {
+      alert('정보 등록에 실패했습니다. 잠시 후 다시 시도해주세요.');
+      navigate('/');
+    }
+
   };
 
   // sweet-alert 모달창

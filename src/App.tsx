@@ -12,24 +12,27 @@ import Layout from './components/common/Layout';
 import Info from './pages/info/Info';
 import Home from './pages/main/Home';
 import Matching from './pages/matching/Matching';
-import NotFound from './components/NotFound';
+import NotFound from './components/error/NotFound';
+import ErrorBoundary from './components/error/ErrorBoundary';
 
 function App() {
   return (
     <React.Fragment>
       <ThemeProvider theme={Theme}>
         <GlobalStyles />
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route path="/" element={<SignUp />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/user/kakao/callback" element={<Kakao />} />
-            <Route path="/info/:userId" element={<Info />} />
-            <Route path="/home/:userId" element={<Home />} />
-            <Route path="/matching" element={<Matching />} />
-            <Route path="*" element={<NotFound />} />
-          </Route>
-        </Routes>
+        <ErrorBoundary>
+          <Routes>
+            <Route path="/" element={<Layout />}>
+              <Route path="/" element={<SignUp />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/user/kakao/callback" element={<Kakao />} />
+              <Route path="/info/:userId" element={<Info />} />
+              <Route path="/home/:userId" element={<Home />} />
+              <Route path="/matching/:userId" element={<Matching />} />
+              <Route path="*" element={<NotFound />} />
+            </Route>
+          </Routes>
+        </ErrorBoundary>
       </ThemeProvider>
     </React.Fragment>
   );

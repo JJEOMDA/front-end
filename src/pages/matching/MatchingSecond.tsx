@@ -5,13 +5,12 @@ import { IViewInput } from '../info/InfoType';
 
 const MatchingSecond = (props: {
   setTabIndex: Dispatch<SetStateAction<number>>;
+  setUserInfo: Dispatch<SetStateAction<object>>;
 }) => {
   // react-hook-form 타입정의
   interface FormProps {
     alcohol: string;
     tobacco: string;
-    tall: string;
-    height: string;
   }
 
   // 하단의 스타일드 컴포넌트에서 사용하기위해 타입을 './infoType' 에서 export 해오는 식으로.
@@ -29,8 +28,14 @@ const MatchingSecond = (props: {
   } = useForm<FormProps>({ mode: 'onChange' });
 
   // 폼 버튼 클릭시 작동하는 함수
-  const onSubmit = async () => {
+  const onSubmit = async (data: FormProps) => {
     props.setTabIndex((prev) => prev + 1);
+    props.setUserInfo((prev) => {
+      let newUserInfo: any = { ...prev };
+      newUserInfo['alcohol'] = data.alcohol;
+      newUserInfo['tobacco'] = data.tobacco;
+      return newUserInfo;
+    });
   };
 
   return (

@@ -6,11 +6,12 @@ import { IViewInput } from '../info/InfoType';
 
 const MatchingFirst = (props: {
   setTabIndex: Dispatch<SetStateAction<number>>;
+  setUserInfo: Dispatch<SetStateAction<object>>;
 }) => {
   // react-hook-form 타입정의
   interface FormProps {
-    age?: string;
-    residence?: string;
+    age: string;
+    residence: string;
     tall: string;
     height: string;
   }
@@ -30,8 +31,16 @@ const MatchingFirst = (props: {
   } = useForm<FormProps>({ mode: 'onChange' });
 
   // 폼 버튼 클릭시 작동하는 함수
-  const onSubmit = async () => {
+  const onSubmit = async (data: FormProps) => {
     props.setTabIndex((prev) => prev + 1);
+    props.setUserInfo((prev) => {
+      let newUserInfo: any = { ...prev };
+      newUserInfo['age'] = selectAgeState;
+      newUserInfo['residence'] = selectResidenceState;
+      newUserInfo['tall'] = data.tall;
+      newUserInfo['height'] = data.height;
+      return newUserInfo;
+    });
   };
 
   // react-select 핸들링
@@ -75,8 +84,8 @@ const MatchingFirst = (props: {
     <PostForm onSubmit={handleSubmit(onSubmit)} viewInput={viewInput}>
       <Line>
         <label htmlFor="age">이성의 나이</label>
-      {/* Select */}
-      <Select
+        {/* Select */}
+        <Select
           id="age"
           options={ageOptions}
           styles={colourStyles}

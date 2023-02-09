@@ -1,4 +1,4 @@
-import React, { useState, Dispatch, SetStateAction, useEffect } from 'react';
+import React, { useState, Dispatch, SetStateAction } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
@@ -61,8 +61,6 @@ const InfoThird = (props: {
       navigate('/');
     }
   };
-
-  useEffect(() => {}, []);
 
   // sweet-alert 모달창
   const Toast = Swal.mixin({

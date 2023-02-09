@@ -1,21 +1,45 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import MatchingBtn from './MatchingBtn';
-import MatchingFirst from './MatchingFirst'
-import MatchingSecond from './MatchingSecond'
-import MatchingThird from './MatchingThird'
-
+import MatchingFirst from './MatchingFirst';
+import MatchingSecond from './MatchingSecond';
+import MatchingThird from './MatchingThird';
+import { useParams } from 'react-router-dom';
 
 const Matching = () => {
   // 탭 인댁스
   const [tabIndex, setTabIndex] = useState<number>(0);
 
+  // url에 id값 받아오기
+  const view = useParams();
+
+  // 컴포넌트별 유저 정보 관리
+  const [userInfo, setUserInfo] = useState<object>({
+    age: '',
+    residence: '',
+    tall: '',
+    height: '',
+
+    alcohol: '',
+    tobacco: '',
+
+    mbti: '',
+    job: '',
+    hobby: '',
+    appearance: '',
+  });
+
   // 탭 인댁스에 따른 컴포넌트 렌더링
   const tabContent = [
     <MatchingBtn setTabIndex={setTabIndex} />,
-    <MatchingFirst setTabIndex={setTabIndex} />,
-    <MatchingSecond setTabIndex={setTabIndex} />,
-    <MatchingThird setTabIndex={setTabIndex} />,
+    <MatchingFirst setTabIndex={setTabIndex} setUserInfo={setUserInfo} />,
+    <MatchingSecond setTabIndex={setTabIndex} setUserInfo={setUserInfo} />,
+    <MatchingThird
+      setTabIndex={setTabIndex}
+      setUserInfo={setUserInfo}
+      userInfo={userInfo}
+      view={view.userId}
+    />,
   ];
 
   return (

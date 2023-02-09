@@ -69,6 +69,20 @@ const Home = () => {
     }
   };
 
+  // 블라인드 매칭 클릭
+  const matching = () => {
+    if (getUseInfoQuery?.data.matchingStatus === -1) {
+      navigate(`/matching/${view.userId}`);
+    } else {
+      Toast.fire({
+        icon: 'warning',
+        title:
+          '<span style="font-size: 14px">매칭이 진행중이에요! 조금만 기다려주세요!',
+        width: 340,
+      });
+    }
+  };
+
   // 쩜다 실시간 매칭 현황 탭
   const developing = () => {
     Toast.fire({
@@ -127,7 +141,7 @@ const Home = () => {
         <ul>
           <li
             onClick={() => {
-              navigate('/matching');
+              matching();
             }}
           >
             <div className="matching">
