@@ -15,7 +15,12 @@ import Matching from './pages/matching/Matching';
 import NotFound from './components/error/NotFound';
 import ErrorBoundary from './components/error/ErrorBoundary';
 
+// 토큰 payload에 담겨오는 정보를 바탕으로 로그인 권한 검증
+import jwtDecode from 'jwt-decode';
+import { getCookie } from './shared/cookie';
+
 function App() {
+  const accessToken = getCookie('Authorization');
   return (
     <React.Fragment>
       <ThemeProvider theme={Theme}>
