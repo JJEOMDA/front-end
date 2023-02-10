@@ -23,10 +23,7 @@ $ yarn add jwt-decode
 
 # 👀 쩜다 . JJeomda .
 
-<img src="https://img.shields.io/badge/React-61DAFB?style=flat&logo=React&logoColor=white"/> 
-<img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=TypeScript&logoColor=white"/>
-<img src="https://img.shields.io/badge/SpringBoot-6DB33F?style=flat-square&logo=SpringBoot&logoColor=white">
-<img src="https://img.shields.io/badge/JAVA-007396?style=flat-square&logo=Java&logoColor=white">
+<img src="https://img.shields.io/badge/React-61DAFB?style=flat&logo=React&logoColor=white"/> <img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=TypeScript&logoColor=white"/><img src="https://img.shields.io/badge/SpringBoot-6DB33F?style=flat-square&logo=SpringBoot&logoColor=white"><img src="https://img.shields.io/badge/JAVA-007396?style=flat-square&logo=Java&logoColor=white">
 
 <br/>
 
@@ -40,8 +37,7 @@ $ yarn add jwt-decode
 
 <br/>
 
-<img src="./public/images/signup.png" width="300" height="540"/>
-<img src="./public/images/login.png" width="300" height="540"/>
+<img src="./public/images/signup.png" width="320" height="560"/><img src="./public/images/login.png" width="320" height="560"/>
 
 <br/>
 
@@ -60,9 +56,6 @@ $ yarn add jwt-decode
 
 <br/>
 
-<img src="./public/images/home_2.png" width="320" height="540"/>
-<img src="./public/images/home_3.png" width="320" height="540"/>
-<img src="./public/images/home_4.png" width="320" height="540"/>
-<img src="./public/images/home_5.png" width="320" height="540"/>
+<img src="./public/images/home_2.png" width="320" height="540"/><img src="./public/images/home_3.png" width="320" height="540"/><img src="./public/images/home_4.png" width="320" height="540"/><img src="./public/images/home_5.png" width="320" height="540"/>
 
 <br/>
