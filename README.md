@@ -37,7 +37,7 @@ $ yarn add jwt-decode
 
 <br/>
 
-<img src="./public/images/signup.png" width="320" height="560"/><img src="./public/images/login.png" width="320" height="560"/>
+<img src="./public/images/signup.png" width="320" height="560"/>&nbsp;&nbsp;&nbsp;<img src="./public/images/login.png" width="320" height="560"/>
 
 <br/>
 
@@ -56,6 +56,6 @@ $ yarn add jwt-decode
 
 <br/>
 
-<img src="./public/images/home_2.png" width="320" height="540"/><img src="./public/images/home_3.png" width="320" height="540"/><img src="./public/images/home_4.png" width="320" height="540"/><img src="./public/images/home_5.png" width="320" height="540"/>
+<img src="./public/images/home_2.png" width="320" height="540"/>&nbsp;&nbsp;&nbsp;<img src="./public/images/home_3.png" width="320" height="540"/><br/><img src="./public/images/home_4.png" width="320" height="540"/>&nbsp;&nbsp;&nbsp;<img src="./public/images/home_5.png" width="320" height="540"/>
 
 <br/>
