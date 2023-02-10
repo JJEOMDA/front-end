@@ -4,8 +4,6 @@ import PuffLoader from 'react-spinners/PuffLoader';
 import { deleteCookie } from '../../shared/cookie';
 
 const ErrorComponent = () => {
-  // useNavigate 선언
-
   return (
     <Wrap>
       <Main>

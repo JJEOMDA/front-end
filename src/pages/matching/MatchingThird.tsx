@@ -10,7 +10,6 @@ const MatchingThird = (props: {
   setTabIndex: Dispatch<SetStateAction<number>>;
   setUserInfo: Dispatch<SetStateAction<object>>;
   userInfo: object;
-  view: string | undefined;
 }) => {
   // useNavigate 선언
   const navigate = useNavigate();
@@ -49,19 +48,18 @@ const MatchingThird = (props: {
     newUserInfo['appearance'] = data.appearance;
 
     try {
-      await apis.registerUserIdealInfo(props.view, newUserInfo);
+      await apis.registerUserIdealInfo(newUserInfo);
       Toast.fire({
         icon: 'success',
         title:
           '<span style="font-size: 14px">입력하신 정보를 바탕으로 매칭을 시작합니다!',
         width: 340,
       });
-      navigate(`/home/${props.view}`);
+      navigate('/home');
     } catch (e: any) {
       alert('정보 등록에 실패했습니다. 잠시 후 다시 시도해주세요.');
       navigate('/');
     }
-
   };
 
   // sweet-alert 모달창

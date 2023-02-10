@@ -1,6 +1,6 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -10,13 +10,11 @@ import { AiOutlineRight } from 'react-icons/ai';
 import Swal from 'sweetalert2';
 import { useQuery } from '@tanstack/react-query';
 import apis from '../../shared/apis';
+import { deleteCookie } from '../../shared/cookie';
 
 const Home = () => {
   // useNavigate 선언
   const navigate = useNavigate();
-
-  // url에 id값 받아오기
-  const view = useParams();
 
   // 캐러셀 세팅
   const settings = {
@@ -72,7 +70,7 @@ const Home = () => {
   // 블라인드 매칭 클릭
   const matching = () => {
     if (getUseInfoQuery?.data.matchingStatus === -1) {
-      navigate(`/matching/${view.userId}`);
+      navigate('/matching');
     } else {
       Toast.fire({
         icon: 'warning',
@@ -96,7 +94,7 @@ const Home = () => {
   // 유저 정보 호출 api
   const getUserInfo = async () => {
     try {
-      const res = await apis.getUserInfo(view.userId);
+      const res = await apis.getUserInfo();
       return res;
     } catch (err) {
       console.log('유저 정보를 불러오는데 실패했습니다.');
@@ -122,7 +120,7 @@ const Home = () => {
           </div>
           <TfiBackLeft
             onClick={() => {
-              navigate('/');
+              deleteCookie('Authorization');
             }}
           />
         </div>

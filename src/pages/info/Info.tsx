@@ -1,17 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import InfoBtn from './InfoBtn';
 import InfoFirst from './InfoFirst';
 import InfoSecond from './InfoSecond';
 import InfoThird from './InfoThird';
-import { useParams } from 'react-router-dom';
+import apis from '../../shared/apis';
+import { useNavigate } from 'react-router-dom';
 
 const Info = () => {
+  // useNavigate 선언
+  const navigate = useNavigate();
+
   // 탭 인댁스
   const [tabIndex, setTabIndex] = useState<number>(0);
-
-  // url에 id값 받아오기
-  const view = useParams();
 
   // 컴포넌트별 유저 정보 관리
   const [userInfo, setUserInfo] = useState<object>({
@@ -40,9 +41,26 @@ const Info = () => {
       setTabIndex={setTabIndex}
       setUserInfo={setUserInfo}
       userInfo={userInfo}
-      view={view.userId}
     />,
   ];
+
+  useEffect(() => {
+    // status 상태에 따른 라우팅 처리를 위한 유저 정보 호출 api
+    const getUserInfo = async () => {
+      try {
+        const res = await apis.getUserInfo();
+        if (res.data.status === true) {
+          navigate('/home');
+        }
+      } catch (err) {
+        console.log('유저 정보를 불러오는데 실패했습니다.');
+        navigate('/');
+      }
+    };
+    getUserInfo();
+    // useEffect의 missing dependency 문제 block 설정 -> 해당 줄에 아래 주석으로 eslint 규칙 비활성화
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Wrap>

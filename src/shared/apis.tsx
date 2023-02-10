@@ -24,9 +24,9 @@ const apis = {
   kakaoAuth: (code: string | null) => api.post('/user/kakao/callback', code),
 
   // HOME
-  registerUserInfo: (userId: string | undefined, data: any) => api.post(`/user/info/${userId}`, data),
-  getUserInfo: (userId: string | undefined) => api.get(`/user/info/${userId}`),
-  registerUserIdealInfo: (userId: string | undefined, data: any) => api.post(`/user/ideal/info/${userId}`, data),
+  registerUserInfo: ( data: any) => api.post('/user/info/', data),
+  getUserInfo: () => api.get('/user/info/'),
+  registerUserIdealInfo: (data: any) => api.post('/user/ideal/info', data),
 
 };
 

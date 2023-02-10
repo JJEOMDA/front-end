@@ -28,9 +28,11 @@ const Login = () => {
       const res = await apis.login(data);
       setAccessToken(res.data.token);
       // reponse 에 status 값 (DB 유저 정보 입력 여부)에 따른 라우팅 처리
-      res.data.status === false
-        ? navigate(`/info/${res.data.id}`)
-        : navigate(`/home/${res.data.id}`);
+      // res.data.status === false
+      //   ? navigate('/info')
+      //   : navigate('/home');
+      window.location.reload(); 
+      // <!---- important ----> App.tsx 의 토큰 유무에 따른 라우팅 적용시, 토큰을 받아오고 새로고침을 해야 루트 컴포넌트의 로직 작동하기에 새로고침
     } catch (e: any) {
       console.log(e);
       if (e.response.data.errorMessage === '등록되지 않은 E-MAIL 입니다.') {

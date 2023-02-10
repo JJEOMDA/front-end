@@ -1,17 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import MatchingBtn from './MatchingBtn';
 import MatchingFirst from './MatchingFirst';
 import MatchingSecond from './MatchingSecond';
 import MatchingThird from './MatchingThird';
-import { useParams } from 'react-router-dom';
+import apis from '../../shared/apis';
+import { useNavigate } from 'react-router-dom';
 
 const Matching = () => {
+  // useNavigate 선언
+  const navigate = useNavigate();
+
   // 탭 인댁스
   const [tabIndex, setTabIndex] = useState<number>(0);
-
-  // url에 id값 받아오기
-  const view = useParams();
 
   // 컴포넌트별 유저 정보 관리
   const [userInfo, setUserInfo] = useState<object>({
@@ -38,9 +39,25 @@ const Matching = () => {
       setTabIndex={setTabIndex}
       setUserInfo={setUserInfo}
       userInfo={userInfo}
-      view={view.userId}
     />,
   ];
+
+  useEffect(() => {
+    // status 상태에 따른 라우팅 처리를 위한 유저 정보 호출 api
+    const getUserInfo = async () => {
+      try {
+        const res = await apis.getUserInfo();
+        if (res.data.matchingStatus !== -1) {
+          navigate('/home');
+        }
+        return res;
+      } catch (err) {
+        console.log('유저 정보를 불러오는데 실패했습니다.');
+        navigate('/');
+      }
+    };
+    getUserInfo();
+  }, [navigate]);
 
   return (
     <Wrap>

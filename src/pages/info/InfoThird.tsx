@@ -10,7 +10,6 @@ const InfoThird = (props: {
   setTabIndex: Dispatch<SetStateAction<number>>;
   setUserInfo: Dispatch<SetStateAction<object>>;
   userInfo: object;
-  view: string | undefined;
 }) => {
   // useNavigate 선언
   const navigate = useNavigate();
@@ -49,13 +48,14 @@ const InfoThird = (props: {
     newUserInfo['appearance'] = data.appearance;
 
     try {
-      await apis.registerUserInfo(props.view, newUserInfo);
+      await apis.registerUserInfo(newUserInfo);
       Toast.fire({
         icon: 'success',
         title: '<span style="font-size: 14px">성공적으로 제출되었습니다.',
         width: 340,
+      }).then(() => {
+        window.location.reload();
       });
-      navigate(`/home/${props.view}`);
     } catch (e: any) {
       alert('정보 등록에 실패했습니다. 잠시 후 다시 시도해주세요.');
       navigate('/');
@@ -67,7 +67,7 @@ const InfoThird = (props: {
     toast: true,
     position: 'center',
     showConfirmButton: false,
-    timer: 3000,
+    timer: 1000,
     timerProgressBar: true,
     didOpen: (toast) => {
       toast.addEventListener('mouseenter', Swal.stopTimer);
