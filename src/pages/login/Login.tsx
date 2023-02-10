@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { VscClose } from 'react-icons/vsc';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import apis from '../../shared/apis';
-import { setAccessToken } from '../../shared/cookie';
+import { getCookie, setAccessToken } from '../../shared/cookie';
 
 const Login = () => {
   // useNavigate 선언
@@ -24,6 +24,11 @@ const Login = () => {
 
   // 폼 버튼 클릭시 작동하는 함수
   const onSubmit = async (data: FormProps) => {
+    // 아이디 저장 여부 확인
+    save_id
+      ? (document.cookie = `ID=${data.email}; max-age=604800; path=/`)
+      : (document.cookie = `ID=${data.email}; max-age=1; path=/`);
+
     try {
       const res = await apis.login(data);
       setAccessToken(res.data.token);
@@ -31,7 +36,7 @@ const Login = () => {
       // res.data.status === false
       //   ? navigate('/info')
       //   : navigate('/home');
-      window.location.reload(); 
+      window.location.reload();
       // <!---- important ----> App.tsx 의 토큰 유무에 따른 라우팅 적용시, 토큰을 받아오고 새로고침을 해야 루트 컴포넌트의 로직 작동하기에 새로고침
     } catch (e: any) {
       console.log(e);
@@ -65,6 +70,19 @@ const Login = () => {
     window.location.href =
       'https://kauth.kakao.com/oauth/authorize?client_id=b26df1c1a96aa1de57b09714d4a6f8d8&redirect_uri=http://localhost:3000/user/kakao/callback&response_type=code';
   };
+
+  // 캡스락 활성 여부 확인
+  const [capslock, setCapsLock] = useState<boolean>(false);
+
+  // 아이디 저장
+  const [save_id, SetSaveId] = useState<boolean>(false);
+
+  // 아이디 저장 체크박스 여부 검증
+  useEffect(() => {
+    if (getCookie('ID')) {
+      SetSaveId(true);
+    }
+  }, []);
 
   return (
     <Wrap>
@@ -106,6 +124,7 @@ const Login = () => {
             autoComplete="off"
             placeholder="이메일을 입력해주세요"
             isInvalid={!!errors.email}
+            defaultValue={getCookie('ID')}
             {...register('email', {
               required: '이메일을 입력해주세요',
             })}
@@ -120,6 +139,11 @@ const Login = () => {
             autoComplete="off"
             placeholder="영문/숫자/특수문자 포함 8~16자"
             isInvalid={!!errors.password}
+            onKeyPress={(e: React.KeyboardEvent<HTMLInputElement>) => {
+              e.getModifierState('CapsLock') === true
+                ? setCapsLock(true)
+                : setCapsLock(false);
+            }}
             {...register('password', {
               required:
                 '영문,숫자,특수문자(!@#$%^&*)를 1개 이상 조합하여 입력해주세요',
@@ -132,7 +156,25 @@ const Login = () => {
           {errors.password && (
             <div className="err">{errors.password.message}</div>
           )}
+          {capslock && (
+            <div className="err capslock">CapsLock이 켜져 있습니다.</div>
+          )}
         </Line>
+        <div className="tool-box">
+          <div className="left-box">
+            <input
+              id="save"
+              type="checkbox"
+              checked={save_id}
+              onClick={() => SetSaveId(!save_id)}
+              style={{ cursor: 'pointer' }}
+              readOnly
+            />
+            <label htmlFor="save" style={{ cursor: 'pointer' }}>
+              아이디 저장
+            </label>
+          </div>
+        </div>
         <Button>
           <button className="signUp-email">로그인</button>
           <button
@@ -187,6 +229,17 @@ const Wrap = styled.div`
       color: purple;
     }
   }
+  .tool-box {
+    margin-top: 1rem;
+    display: flex;
+    .left-box {
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+    }
+  }
 `;
 const Header = styled.div`
   .title {
@@ -221,6 +274,9 @@ const Line = styled.div`
     color: red;
     font-size: 1.2rem;
     margin-top: 0.5rem;
+  }
+  .err.capslock {
+    color: blue;
   }
   label {
     margin-bottom: 1rem;
