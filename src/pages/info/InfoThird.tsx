@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import { IViewInput } from './InfoType';
 import Swal from 'sweetalert2';
 import apis from '../../shared/apis';
+import { deleteCookie } from '../../shared/cookie';
 
 const InfoThird = (props: {
   setTabIndex: Dispatch<SetStateAction<number>>;
@@ -58,7 +59,7 @@ const InfoThird = (props: {
       });
     } catch (e: any) {
       alert('정보 등록에 실패했습니다. 잠시 후 다시 시도해주세요.');
-      navigate('/');
+      deleteCookie('Authorization');
     }
   };
 
