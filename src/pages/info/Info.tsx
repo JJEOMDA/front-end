@@ -6,6 +6,7 @@ import InfoSecond from './InfoSecond';
 import InfoThird from './InfoThird';
 import apis from '../../shared/apis';
 import { useNavigate } from 'react-router-dom';
+import { deleteCookie } from '../../shared/cookie';
 
 const Info = () => {
   // useNavigate 선언
@@ -54,7 +55,7 @@ const Info = () => {
         }
       } catch (err) {
         console.log('유저 정보를 불러오는데 실패했습니다.');
-        navigate('/');
+        deleteCookie('Authorization');
       }
     };
     getUserInfo();
